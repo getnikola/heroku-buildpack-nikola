@@ -3,5 +3,5 @@
 cat << EOF
 ---
 default_process_types:
-  web: nikola serve -a 0.0.0.0 -p \$PORT
+  web: /app/.nikola/bin/nikola serve -a 0.0.0.0 -p \$PORT
 EOF

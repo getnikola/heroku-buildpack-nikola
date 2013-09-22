@@ -8,7 +8,7 @@ BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 ROOT_DIR=$(dirname $BIN_DIR)
 BUILD_DIR=$1
 CACHE_DIR=$2
-CACHED_DIRS=".heroku"
+CACHED_DIRS=".heroku .nikola"
 WORKING_DIR=$BIN_DIR
 
 rm -fr $CACHE_DIR
@@ -23,6 +23,8 @@ PIP_VERSION="pip-1.3.1"
 source $BIN_DIR/utils
 
 cd /app/.nikola
+PYTHONPATH='/app/.nikola'
+PYTHONHOME='/app/.nikola'
 
 if [[ ! -d "$CACHE_DIR/$PYTHON_VERSION" ]]; then
   cd $CACHE_DIR
