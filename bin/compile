@@ -17,7 +17,7 @@ ROOT_DIR=$(dirname $BIN_DIR)
 BUILD_DIR=$1
 CACHE_DIR=$2
 
-CACHED_DIRS=".heroku"
+#CACHED_DIRS=".heroku output"
 
 # Static configurations for virtualenv caches.
 VIRTUALENV_LOC=".heroku/venv"
@@ -116,14 +116,14 @@ bpwatch stop clear_old_venvs
 
 # Restore old artifacts from the cache.
 bpwatch start restore_cache
-  for dir in $CACHED_DIRS; do
-    cp -R $CACHE_DIR/$dir . &> /dev/null || true
-  done
+cp -R $CACHE_DIR/.heroku . &> /dev/null || true
+cp -R $CACHE_DIR/output . &> /dev/null || true
 bpwatch stop restore_cache
 
 set +e
-# Create set-aside `.heroku` folder.
+# Create set-aside `.heroku` and `output` folder.
 mkdir .heroku &> /dev/null
+mkdir output &> /dev/null
 set -e
 
 mkdir -p $(dirname $PROFILE_PATH)
@@ -243,10 +243,10 @@ bpwatch stop post_compile
 
 # Store new artifacts in cache.
 bpwatch start dump_cache
-  for dir in $CACHED_DIRS; do
-    rm -rf $CACHE_DIR/$dir
-    cp -R $dir $CACHE_DIR/
-  done
+rm -rf $CACHE_DIR/.heroku
+cp -R .heroku $CACHE_DIR/
+rm -rf $CACHE_DIR/output
+cp -R output $CACHE_DIR/
 bpwatch stop dump_cache
 
 # ### Fin.
