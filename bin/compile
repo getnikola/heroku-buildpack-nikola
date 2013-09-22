@@ -7,14 +7,11 @@ set -eo pipefail
 BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 ROOT_DIR=$(dirname $BIN_DIR)
 BUILD_DIR=$1
-CACHE_DIR=$2
+NIKOLA_DIR=/app/.nikola
 CACHED_DIRS=".heroku .nikola"
 WORKING_DIR=$BIN_DIR
 
-rm -fr $CACHE_DIR
-
-mkdir -p $CACHE_DIR
-mkdir -p /app/.nikola
+mkdir -p $NIKOLA_DIR
 
 # Versions.
 PYTHON_VERSION="python-2.7.5"
@@ -26,25 +23,25 @@ cd /app/.nikola
 PYTHONPATH='/app/.nikola'
 PYTHONHOME='/app/.nikola'
 
-if [[ ! -d "$CACHE_DIR/$PYTHON_VERSION" ]]; then
-  cd $CACHE_DIR
+if [[ ! -d "$NIKOLA_DIR/$PYTHON_VERSION" ]]; then
+  cd $NIKOLA_DIR
   puts-step "Installing Python ($PYTHON_VERSION)"
   curl http://envy-versions.s3.amazonaws.com/$PYTHON_VERSION.tar.bz2 -s | tar jx &> /dev/null
   mv python $PYTHON_VERSION
 fi
 
-export PATH=$CACHE_DIR/$PYTHON_VERSION/bin:$PATH
+export PATH=$NIKOLA_DIR/$PYTHON_VERSION/bin:$PATH
 
-if [[ ! -d "$CACHE_DIR/$DISTRIBUTE_VERSION" ]]; then
-  cd $CACHE_DIR
+if [[ ! -d "$NIKOLA_DIR/$DISTRIBUTE_VERSION" ]]; then
+  cd $NIKOLA_DIR
   puts-step "Installing Distribute ($DISTRIBUTE_VERSION)"
   curl https://pypi.python.org/packages/source/d/distribute/$DISTRIBUTE_VERSION.tar.gz -s | tar xz &> /dev/null
   cd $DISTRIBUTE_VERSION
   python setup.py install &> /dev/null
 fi
 
-if [[ ! -d "$CACHE_DIR/$PIP_VERSION" ]]; then
-  cd $CACHE_DIR
+if [[ ! -d "$NIKOLA_DIR/$PIP_VERSION" ]]; then
+  cd $NIKOLA_DIR
   puts-step "Install pip ($PIP_VERSION)"
   curl https://pypi.python.org/packages/source/p/pip/$PIP_VERSION.tar.gz -s | tar xz &> /dev/null
   cd $PIP_VERSION
