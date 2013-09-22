@@ -15,19 +15,8 @@ VIRTUALENV_LOC=".heroku/venv"
 export PATH=$BUILD_DIR/.heroku/python/bin:$PATH
 export PYTHONUNBUFFERED=1
 export PYTHONHOME=/app/.heroku/python
-export LANG=en_US.UTF-8
-export LIBRARY_PATH=/app/.heroku/vendor/lib
-export LD_LIBRARY_PATH=/app/.heroku/vendor/lib
 
 source $BIN_DIR/utils
-
-#set-env PATH '$HOME/.heroku/python/bin:$PATH'
-#set-env PYTHONUNBUFFERED true
-#set-default-env LIBRARY_PATH /app/.heroku/vendor/lib
-#set-default-env LD_LIBRARY_PATH /app/.heroku/vendor/lib
-#set-default-env LANG en_US.UTF-8
-#set-default-env PYTHONHASHSEED random
-#set-default-env PYTHONPATH /app/
 
 rm -fr $CACHE_DIR
 
