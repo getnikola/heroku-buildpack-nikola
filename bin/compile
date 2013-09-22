@@ -4,8 +4,7 @@
 set -eo pipefail
 
 # Paths.
-mkdir .nikola
-BIN_DIR=$(cd '.nikola'; pwd) # absolute path
+BIN_DIR=$(cd $0; pwd) # absolute path
 ROOT_DIR=$(dirname $BIN_DIR)
 BUILD_DIR=$1
 CACHE_DIR=$2
@@ -15,12 +14,15 @@ WORKING_DIR=$BIN_DIR
 rm -fr $CACHE_DIR
 
 mkdir -p $CACHE_DIR
+mkdir -p /app/.nikola
 
 # Versions.
 PYTHON_VERSION="python-2.7.5"
 DISTRIBUTE_VERSION="distribute-0.6.49"
 PIP_VERSION="pip-1.3.1"
 source $BIN_DIR/utils
+
+cd /app/.nikola
 
 if [[ ! -d "$CACHE_DIR/$PYTHON_VERSION" ]]; then
   cd $CACHE_DIR
