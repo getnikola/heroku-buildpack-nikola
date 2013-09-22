@@ -52,7 +52,7 @@ fi
 cd $BUILD_DIR
 
 puts-step "Installing Nikola using pip ($PIP_VERSION)"
-pip install --use-mirrors nikola --path $PFY | indent
+pip install --use-mirrors nikola | indent
 
 puts-step "Running Nikola"
 nikola build | indent
