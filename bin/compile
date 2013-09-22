@@ -235,6 +235,8 @@ set-default-env LANG en_US.UTF-8
 set-default-env PYTHONHASHSEED random
 set-default-env PYTHONPATH /app/
 
+puts-step "Building site using Nikola"
+nikola build | indent
 
 # Experimental post_compile hook.
 bpwatch start post_compile
