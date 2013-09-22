@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -f $1/conf.py ]; then
+  echo "Nikola"
+  exit 0
+else
+  echo "A conf.py file is required"
+  exit 1
+fi
+
