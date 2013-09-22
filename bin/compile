@@ -6,10 +6,28 @@ set -eo pipefail
 # Paths.
 BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 ROOT_DIR=$(dirname $BIN_DIR)
-BUILD_DIR=$1
+BUILD_DIR=/app/
 CACHE_DIR=$2
 CACHED_DIRS=".heroku"
 WORKING_DIR=$(pwd)
+VIRTUALENV_LOC=".heroku/venv"
+
+export PATH=$BUILD_DIR/.heroku/python/bin:$PATH
+export PYTHONUNBUFFERED=1
+export LANG=en_US.UTF-8
+export LIBRARY_PATH=/app/.heroku/vendor/lib
+export LD_LIBRARY_PATH=/app/.heroku/vendor/lib
+
+source $BIN_DIR/utils
+
+set-env PATH '$HOME/.heroku/python/bin:$PATH'
+set-env PYTHONUNBUFFERED true
+set-env PYTHONHOME /app/.heroku/python
+set-default-env LIBRARY_PATH /app/.heroku/vendor/lib
+set-default-env LD_LIBRARY_PATH /app/.heroku/vendor/lib
+set-default-env LANG en_US.UTF-8
+set-default-env PYTHONHASHSEED random
+set-default-env PYTHONPATH /app/
 
 rm -fr $CACHE_DIR
 
@@ -20,7 +38,6 @@ PYTHON_VERSION="python-2.7.5"
 DISTRIBUTE_VERSION="distribute-0.6.49"
 PIP_VERSION="pip-1.3.1"
 
-source $BIN_DIR/utils
 
 if [[ ! -d "$CACHE_DIR/$PYTHON_VERSION" ]]; then
   cd $CACHE_DIR
